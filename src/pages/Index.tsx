@@ -24,13 +24,13 @@ const catalogItems = [
 
 const donatePacks = [
   {
-    id: "starter",
-    name: "STARTER",
-    price: 199,
+    id: "d.helper",
+    name: "D.HELPER",
+    price: 499,
     color: "#4CAF50",
     emoji: "🪨",
     perks: [
-      "Префикс [STARTER] в чате",
+      "Префикс [D.HELPER] в чате",
       "×2 к дропу предметов",
       "Доступ к /fly на 7 дней",
       "Цветной ник",
@@ -38,14 +38,14 @@ const donatePacks = [
     ],
   },
   {
-    id: "vip",
-    name: "VIP",
-    price: 499,
+    id: "pegas",
+    name: "PEGAS",
+    price: 1999,
     color: "#FFD700",
     emoji: "⭐",
     popular: true,
     perks: [
-      "Префикс [VIP] золотом",
+      "Префикс [PEGAS] золотом",
       "×3 к дропу предметов",
       "/fly без ограничений",
       "Личный приват 256 чанков",
@@ -54,30 +54,15 @@ const donatePacks = [
     ],
   },
   {
-    id: "diamond",
-    name: "DIAMOND",
-    price: 999,
-    color: "#00BCD4",
-    emoji: "💎",
-    perks: [
-      "Префикс [DIAMOND] синим",
-      "×5 к дропу предметов",
-      "Все права VIP+",
-      "Кастомный ник и скин",
-      "Стартовый набор ресурсов",
-      "Привилегия на 60 дней",
-    ],
-  },
-  {
-    id: "netherite",
-    name: "NETHERITE",
-    price: 1999,
+    id: "dev",
+    name: "DEV",
+    price: 24999,
     color: "#9C27B0",
     emoji: "👑",
     perks: [
-      "Префикс [GOD] фиолетовым",
+      "Префикс [DEV] фиолетовым",
       "×10 к дропу предметов",
-      "Все права DIAMOND+",
+      "Все права PEGAS+",
       "Личный мир / измерение",
       "Приоритетная поддержка 24/7",
       "Вечная привилегия",
@@ -190,7 +175,7 @@ function Navbar({ active, onNav }: { active: string; onNav: (id: string) => void
       <div className="flex items-center gap-3">
         <span className="text-2xl">⛏️</span>
         <div>
-          <div className="font-pixel text-xs" style={{ color: "#4CAF50" }}>CRAFTSTORE</div>
+          <div className="font-pixel text-xs" style={{ color: "#4CAF50" }}>DUNWORLD</div>
           <div className="flex items-center gap-2 mt-1">
             <span className="w-2 h-2 bg-green-400 block animate-pulse-green" style={{ boxShadow: "0 0 6px #4CAF50" }} />
             <span className="font-pixel" style={{ fontSize: "8px", color: "#4CAF50" }}>ОНЛАЙН</span>
@@ -277,7 +262,7 @@ function HeroSection({ onNav }: { onNav: (id: string) => void }) {
 
       <div className="relative z-10 text-center px-4 max-w-4xl mx-auto animate-slide-up">
         <div className="font-pixel text-2xl sm:text-3xl md:text-4xl mb-4 flex flex-wrap justify-center gap-1" style={{ color: "#4CAF50" }}>
-          {titleChars.map((char, i) => (
+          {"DUNWORLD".split("").map((char, i) => (
             <PixelChar key={i} char={char} delay={i * 100} />
           ))}
         </div>
@@ -290,7 +275,7 @@ function HeroSection({ onNav }: { onNav: (id: string) => void }) {
           Лучший магазин привилегий и товаров для нашего сервера
         </p>
         <p className="font-rubik text-sm mb-10">
-          IP: <span style={{ color: "#4CAF50", fontFamily: "monospace" }}>play.craftstore.ru</span>
+          IP: <span style={{ color: "#4CAF50", fontFamily: "monospace" }}>play.dunworld.ru</span>
           <span className="animate-blink" style={{ color: "#4CAF50" }}>_</span>
         </p>
 
@@ -613,9 +598,9 @@ function Footer({ onNav }: { onNav: (id: string) => void }) {
       <div className="max-w-6xl mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-start gap-8 mb-8">
           <div>
-            <div className="font-pixel text-base mb-2" style={{ color: "#4CAF50" }}>⛏️ CRAFTSTORE</div>
+            <div className="font-pixel text-base mb-2" style={{ color: "#4CAF50" }}>⛏️ DUNWORLD</div>
             <div className="font-rubik text-sm mb-3" style={{ color: "#555" }}>Лучший магазин для твоего Minecraft</div>
-            <div className="font-pixel" style={{ fontSize: "10px", color: "#4CAF50" }}>play.craftstore.ru</div>
+            <div className="font-pixel" style={{ fontSize: "10px", color: "#4CAF50" }}>play.dunworld.ru</div>
           </div>
           <div className="flex flex-col gap-2">
             <div className="font-pixel mb-2" style={{ fontSize: "9px", color: "#555" }}>НАВИГАЦИЯ</div>

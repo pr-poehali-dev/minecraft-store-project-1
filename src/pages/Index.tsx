@@ -1,73 +1,52 @@
 import { useState } from "react";
 import Icon from "@/components/ui/icon";
 
-const HERO_IMAGE = "https://cdn.poehali.dev/projects/60246970-7ac1-4231-9122-fee36c5d59df/files/3e6cbbf8-b17d-431c-b395-ce9ece4bb38c.jpg";
+const HERO_IMG = "https://cdn.poehali.dev/projects/60246970-7ac1-4231-9122-fee36c5d59df/files/b29e7e85-2223-472c-99f8-1cd40d72f927.jpg";
 
 // ─── DATA ────────────────────────────────────────────────────────────────────
 
 const navItems = [
-  { id: "home", label: "Главная", icon: "Home" },
-  { id: "catalog", label: "Каталог", icon: "ShoppingBag" },
-  { id: "donate", label: "Привилегии", icon: "Crown" },
-  { id: "leaderboard", label: "Топ игроков", icon: "Trophy" },
-  { id: "rules", label: "Правила", icon: "ScrollText" },
+  { id: "home", label: "Главная" },
+  { id: "shop", label: "Магазин" },
+  { id: "rules", label: "Правила" },
+  { id: "donate", label: "Описание привилегий" },
+  { id: "leaderboard", label: "Топ игроков" },
 ];
 
-const catalogItems = [
-  { id: 1, name: "Алмазный меч", category: "Оружие", price: 149, rarity: "diamond", emoji: "⚔️", desc: "Зачаровано Острота V, Огонь II" },
-  { id: 2, name: "Комплект брони", category: "Броня", price: 299, rarity: "gold", emoji: "🛡️", desc: "Полный сет золотой брони" },
-  { id: 3, name: "Эндер-сундук ×64", category: "Блоки", price: 89, rarity: "emerald", emoji: "📦", desc: "Личное хранилище в любой точке" },
-  { id: 4, name: "Сет зелий", category: "Зелья", price: 199, rarity: "purple", emoji: "🧪", desc: "Силы, скорости и регенерации" },
-  { id: 5, name: "Маяк", category: "Блоки", price: 499, rarity: "diamond", emoji: "🔆", desc: "Активирует бафы на всей карте" },
-  { id: 6, name: "Ключи от кейсов ×10", category: "Особое", price: 249, rarity: "gold", emoji: "🗝️", desc: "Открой редкие награды" },
-];
-
-const donatePacks = [
+const privileges = [
   {
-    id: "d.helper",
-    name: "D.HELPER",
-    price: 499,
-    color: "#4CAF50",
-    emoji: "🪨",
-    perks: [
-      "Префикс [D.HELPER] в чате",
-      "×2 к дропу предметов",
-      "Доступ к /fly на 7 дней",
-      "Цветной ник",
-      "Привилегия на 30 дней",
-    ],
+    id: "d-helper", name: "D.HELPER", price: 499,
+    emoji: "🛡️",
+    bg: "linear-gradient(135deg, #43A047, #1B5E20)",
+    perks: ["Префикс [D.HELPER] в чате", "×2 к дропу предметов", "/fly на 7 дней", "Цветной ник", "30 дней"],
   },
   {
-    id: "pegas",
-    name: "PEGAS",
-    price: 1999,
-    color: "#FFD700",
+    id: "pegas", name: "PEGAS", price: 1999,
     emoji: "⭐",
+    bg: "linear-gradient(135deg, #FB8C00, #E65100)",
     popular: true,
-    perks: [
-      "Префикс [PEGAS] золотом",
-      "×3 к дропу предметов",
-      "/fly без ограничений",
-      "Личный приват 256 чанков",
-      "Доступ к VIP-серверу",
-      "Привилегия на 30 дней",
-    ],
+    perks: ["Префикс [PEGAS] золотом", "×3 к дропу предметов", "/fly без ограничений", "Приват 256 чанков", "30 дней"],
   },
   {
-    id: "dev",
-    name: "DEV",
-    price: 24999,
-    color: "#F44336",
+    id: "dev", name: "DEV", price: 24999,
     emoji: "👑",
-    perks: [
-      "Префикс [DEV] красным",
-      "Разработчик сервера",
-      "FULL ACCESS ко всем функциям",
-      "Личный мир / измерение",
-      "Приоритетная поддержка 24/7",
-      "Вечная привилегия",
-    ],
+    bg: "linear-gradient(135deg, #E53935, #7B1FA2)",
+    perks: ["Префикс [DEV] красным", "Разработчик сервера", "FULL ACCESS", "Личный мир", "Вечная привилегия"],
   },
+];
+
+const chests = [
+  { id: 1, name: "Сундук привилегий", price: 199, emoji: "📦", tag: null },
+  { id: 2, name: "3 сундука привилегий", price: 499, emoji: "📦", tag: "×3" },
+  { id: 3, name: "5 сундуков привилегий", price: 799, emoji: "📦", tag: "×5" },
+  { id: 4, name: "Сундук с монетами", price: 99, emoji: "💰", tag: null },
+  { id: 5, name: "3 сундука с монетами", price: 249, emoji: "💰", tag: "×3" },
+  { id: 6, name: "Сундук с ключами", price: 149, emoji: "🗝️", tag: null },
+];
+
+const services = [
+  { id: 1, name: "Разбан", price: 349, emoji: "🔓" },
+  { id: 2, name: "Размут", price: 119, emoji: "🔊" },
 ];
 
 const leaderboard = [
@@ -82,149 +61,73 @@ const leaderboard = [
 ];
 
 const rules = [
-  {
-    icon: "Shield",
-    title: "Честная игра",
-    items: [
-      "Запрещены читы, хаки и эксплойты",
-      "Запрещены дюпы предметов",
-      "Запрещён гриф построек других игроков",
-      "Запрещены абузы игровых механик",
-    ],
-  },
-  {
-    icon: "MessageSquare",
-    title: "Общение",
-    items: [
-      "Запрещены оскорбления и мат в чате",
-      "Запрещены спам и флуд",
-      "Запрещена реклама других серверов",
-      "Уважайте других игроков",
-    ],
-  },
-  {
-    icon: "CreditCard",
-    title: "Покупки",
-    items: [
-      "Все покупки невозвратны",
-      "После оплаты привилегия активируется в течение 15 минут",
-      "Для возврата — обращайтесь в поддержку",
-      "Администрация не несёт ответственности за бан при нарушении правил",
-    ],
-  },
-  {
-    icon: "Server",
-    title: "Технические правила",
-    items: [
-      "Лаг-машины запрещены",
-      "Фермы ограничены 256 мобами в чанке",
-      "Запрещено AFK-фармить через бот",
-      "При ошибках сервера — сообщайте в поддержку",
-    ],
-  },
+  { icon: "Shield", title: "Честная игра", items: ["Запрещены читы, хаки и эксплойты", "Запрещены дюпы предметов", "Запрещён гриф построек", "Запрещены абузы механик"] },
+  { icon: "MessageSquare", title: "Общение", items: ["Запрещены оскорбления и мат", "Запрещены спам и флуд", "Запрещена реклама серверов", "Уважайте других игроков"] },
+  { icon: "CreditCard", title: "Покупки", items: ["Все покупки невозвратны", "Активация до 15 минут после оплаты", "По вопросам — в поддержку", "Бан за нарушения — без возврата"] },
+  { icon: "Server", title: "Технические", items: ["Лаг-машины запрещены", "Фермы — до 256 мобов в чанке", "AFK-боты запрещены", "Ошибки сервера — сообщайте нам"] },
 ];
 
-const rarityConfig: Record<string, { label: string; color: string; bg: string }> = {
-  diamond: { label: "Редкий", color: "#00BCD4", bg: "rgba(0,188,212,0.07)" },
-  gold: { label: "Эпический", color: "#FFD700", bg: "rgba(255,215,0,0.07)" },
-  emerald: { label: "Обычный", color: "#00E676", bg: "rgba(0,230,118,0.07)" },
-  purple: { label: "Мифический", color: "#9C27B0", bg: "rgba(156,39,176,0.07)" },
-};
+const socials = [
+  { label: "ВКонтакте", icon: "ExternalLink", color: "#0077FF", bg: "#E3F0FF" },
+  { label: "YouTube", icon: "ExternalLink", color: "#FF0000", bg: "#FFE5E5" },
+  { label: "Discord", icon: "ExternalLink", color: "#5865F2", bg: "#EEEEFF" },
+  { label: "Telegram", icon: "ExternalLink", color: "#26A5E4", bg: "#E3F6FF" },
+];
 
 // ─── COMPONENTS ───────────────────────────────────────────────────────────────
 
-function PixelChar({ char, delay = 0 }: { char: string; delay?: number }) {
-  return (
-    <span
-      className="inline-block animate-float"
-      style={{ animationDelay: `${delay}ms`, animationDuration: "2.5s" }}
-    >
-      {char}
-    </span>
-  );
-}
-
-function SectionHeader({ title, subtitle, icon }: { title: string; subtitle: string; icon: string }) {
-  return (
-    <div className="text-center mb-12">
-      <div className="flex items-center justify-center gap-3 mb-3">
-        <div className="h-px flex-1" style={{ background: "linear-gradient(to right, transparent, rgba(76,175,80,0.4))", maxWidth: 120 }} />
-        <Icon name={icon} size={20} style={{ color: "#4CAF50" }} />
-        <div className="h-px flex-1" style={{ background: "linear-gradient(to left, transparent, rgba(76,175,80,0.4))", maxWidth: 120 }} />
-      </div>
-      <h2 className="font-pixel text-xl sm:text-2xl mb-2" style={{ color: "#4CAF50" }}>
-        {title}
-      </h2>
-      <p className="font-rubik text-sm" style={{ color: "#888" }}>{subtitle}</p>
-    </div>
-  );
-}
-
 function Navbar({ active, onNav }: { active: string; onNav: (id: string) => void }) {
-  const [menuOpen, setMenuOpen] = useState(false);
-
+  const [open, setOpen] = useState(false);
   return (
-    <nav
-      className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4"
-      style={{
-        background: "rgba(10,10,10,0.95)",
-        borderBottom: "2px solid rgba(76,175,80,0.35)",
-        backdropFilter: "blur(12px)",
-      }}
-    >
-      <div className="flex items-center gap-3">
-        <span className="text-2xl">⛏️</span>
-        <div>
-          <div className="font-pixel text-xs" style={{ color: "#4CAF50" }}>DUNWORLD</div>
-          <div className="flex items-center gap-2 mt-1">
-            <span className="w-2 h-2 bg-green-400 block animate-pulse-green" style={{ boxShadow: "0 0 6px #4CAF50" }} />
-            <span className="font-pixel" style={{ fontSize: "8px", color: "#4CAF50" }}>ОНЛАЙН</span>
-            <span className="font-pixel" style={{ fontSize: "8px", color: "#555" }}>247/500</span>
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm">
+      <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between gap-6">
+        {/* Logo */}
+        <button onClick={() => onNav("home")} className="flex items-center gap-2 flex-shrink-0">
+          <div className="w-9 h-9 rounded-lg flex items-center justify-center text-white font-bold text-sm" style={{ background: "#FF9800" }}>
+            DW
           </div>
-        </div>
-      </div>
+          <div className="leading-tight">
+            <div className="font-rubik font-900 text-sm text-gray-900">DUN</div>
+            <div className="font-rubik font-900 text-sm text-gray-900" style={{ marginTop: "-4px" }}>WORLD</div>
+          </div>
+        </button>
 
-      <div className="hidden md:flex items-center gap-1">
-        {navItems.map((item) => (
-          <button
-            key={item.id}
-            onClick={() => onNav(item.id)}
-            className="px-3 py-2 font-pixel transition-all duration-150"
-            style={{
-              fontSize: "9px",
-              color: active === item.id ? "#4CAF50" : "#666",
-              background: active === item.id ? "rgba(76,175,80,0.1)" : "transparent",
-              borderBottom: active === item.id ? "2px solid #4CAF50" : "2px solid transparent",
-            }}
-          >
-            {item.label}
-          </button>
-        ))}
-      </div>
-
-      <button className="mc-btn hidden md:block" onClick={() => onNav("donate")}>
-        КУПИТЬ ДОНАТ
-      </button>
-
-      <button
-        className="md:hidden p-2"
-        style={{ color: "#4CAF50" }}
-        onClick={() => setMenuOpen(!menuOpen)}
-      >
-        <Icon name={menuOpen ? "X" : "Menu"} size={20} />
-      </button>
-
-      {menuOpen && (
-        <div
-          className="absolute top-full left-0 right-0 md:hidden"
-          style={{ background: "rgba(10,10,10,0.98)", borderBottom: "2px solid rgba(76,175,80,0.3)" }}
-        >
+        {/* Desktop nav */}
+        <div className="hidden md:flex items-center gap-6 flex-1 justify-center">
           {navItems.map((item) => (
             <button
               key={item.id}
-              onClick={() => { onNav(item.id); setMenuOpen(false); }}
-              className="w-full text-left px-6 py-4 font-pixel border-b"
-              style={{ fontSize: "9px", color: active === item.id ? "#4CAF50" : "#666", borderColor: "rgba(76,175,80,0.1)" }}
+              onClick={() => onNav(item.id)}
+              className={`nav-link${active === item.id ? " active" : ""}`}
+            >
+              {item.label}
+            </button>
+          ))}
+        </div>
+
+        {/* Online + CTA */}
+        <div className="hidden md:flex items-center gap-3 flex-shrink-0">
+          <div className="flex items-center gap-1.5 text-xs text-gray-500">
+            <span className="w-2 h-2 rounded-full bg-green-500 block" style={{ boxShadow: "0 0 5px #22c55e" }} />
+            247 онлайн
+          </div>
+          <button className="orange-btn" onClick={() => onNav("shop")}>
+            Магазин
+          </button>
+        </div>
+
+        {/* Mobile */}
+        <button className="md:hidden p-1 text-gray-600" onClick={() => setOpen(!open)}>
+          <Icon name={open ? "X" : "Menu"} size={22} />
+        </button>
+      </div>
+      {open && (
+        <div className="md:hidden bg-white border-t border-gray-100">
+          {navItems.map((item) => (
+            <button
+              key={item.id}
+              onClick={() => { onNav(item.id); setOpen(false); }}
+              className="w-full text-left px-5 py-3 text-sm font-semibold text-gray-600 border-b border-gray-50 hover:text-orange-500"
             >
               {item.label}
             </button>
@@ -236,147 +139,245 @@ function Navbar({ active, onNav }: { active: string; onNav: (id: string) => void
 }
 
 function HeroSection({ onNav }: { onNav: (id: string) => void }) {
-  const titleChars = "CRAFTSTORE".split("");
-
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+    <section className="relative min-h-screen flex items-center overflow-hidden pt-16">
       <div
         className="absolute inset-0 z-0"
         style={{
-          backgroundImage: `url(${HERO_IMAGE})`,
+          backgroundImage: `url(${HERO_IMG})`,
           backgroundSize: "cover",
-          backgroundPosition: "center",
-          filter: "brightness(0.22) saturate(0.5)",
+          backgroundPosition: "center top",
         }}
       />
-      <div
-        className="absolute inset-0 z-0"
-        style={{
-          backgroundImage: `
-            repeating-linear-gradient(0deg, transparent, transparent 31px, rgba(0,255,0,0.04) 31px, rgba(0,255,0,0.04) 32px),
-            repeating-linear-gradient(90deg, transparent, transparent 31px, rgba(0,255,0,0.04) 31px, rgba(0,255,0,0.04) 32px)
-          `,
-        }}
-      />
-      <div className="absolute bottom-0 left-0 right-0 h-48 z-0" style={{ background: "linear-gradient(transparent, #0A0A0A)" }} />
+      <div className="absolute inset-0 z-0" style={{ background: "rgba(230,100,0,0.72)" }} />
+      <div className="absolute bottom-0 left-0 right-0 h-32 z-0" style={{ background: "linear-gradient(transparent, #F5F5F5)" }} />
 
-      <div className="relative z-10 text-center px-4 max-w-4xl mx-auto animate-slide-up">
-        <div className="font-pixel text-2xl sm:text-3xl md:text-4xl mb-4 flex flex-wrap justify-center gap-1" style={{ color: "#4CAF50" }}>
-          {"DUNWORLD".split("").map((char, i) => (
-            <PixelChar key={i} char={char} delay={i * 100} />
-          ))}
+      <div className="relative z-10 max-w-6xl mx-auto px-6 py-20 w-full">
+        <div className="max-w-xl animate-slide-up">
+          <h1 className="font-rubik font-900 text-4xl sm:text-5xl md:text-6xl text-white leading-tight mb-2">
+            DUNWORLD
+          </h1>
+          <h2 className="font-rubik font-900 text-3xl sm:text-4xl text-white leading-tight mb-4" style={{ opacity: 0.9 }}>
+            НАЧАЛО НОВОЙ ЭРЫ
+          </h2>
+          <p className="font-rubik text-white text-base mb-2" style={{ opacity: 0.85 }}>
+            Открой для себя огромные миры,<br />полные веселья и приключений
+          </p>
+          <div className="flex items-center gap-3 mt-8 flex-wrap">
+            <button className="orange-btn" onClick={() => onNav("shop")}>
+              🛒 В магазин
+            </button>
+            <button
+              className="font-rubik font-700 text-sm px-5 py-2.5 rounded-lg border-2 border-white text-white hover:bg-white hover:text-orange-500 transition-all"
+              onClick={() => onNav("donate")}
+            >
+              Привилегии
+            </button>
+          </div>
         </div>
 
-        <div className="font-pixel text-xs mb-6" style={{ color: "#FFD700" }}>
-          ✦ MINECRAFT СЕРВЕР ✦
-        </div>
-
-        <p className="font-rubik text-lg mb-2" style={{ color: "#ccc" }}>
-          Лучший магазин привилегий и товаров для нашего сервера
-        </p>
-        <p className="font-rubik text-sm mb-10">
-          IP: <span style={{ color: "#4CAF50", fontFamily: "monospace" }}>play.dunworld.ru</span>
-          <span className="animate-blink" style={{ color: "#4CAF50" }}>_</span>
-        </p>
-
-        <div className="flex flex-wrap justify-center gap-4">
-          <button className="mc-btn" onClick={() => onNav("donate")}>
-            🎁 ПОЛУЧИТЬ ПРИВИЛЕГИЮ
-          </button>
+        {/* IP block */}
+        <div
+          className="absolute right-6 top-1/2 -translate-y-1/2 hidden lg:block bg-white rounded-2xl p-5 shadow-xl text-center"
+          style={{ minWidth: 200 }}
+        >
+          <div className="text-xs text-gray-500 font-semibold mb-1">Рекомендуемая версия</div>
+          <div className="font-rubik font-700 text-orange-500 mb-3">1.16.5 — 1.20</div>
           <button
-            className="mc-btn mc-btn-gold"
-            onClick={() => onNav("catalog")}
+            className="orange-btn w-full flex items-center justify-center gap-2"
+            onClick={() => navigator.clipboard?.writeText("play.dunworld.ru")}
           >
-            🛒 КАТАЛОГ ТОВАРОВ
+            play.dunworld.ru
+            <Icon name="Copy" size={14} />
           </button>
-        </div>
-
-        <div className="flex flex-wrap justify-center gap-8 mt-16">
-          {[
-            { label: "Игроков онлайн", value: "247", color: "#4CAF50" },
-            { label: "Всего игроков", value: "18 400", color: "#FFD700" },
-            { label: "Дней работы", value: "730", color: "#00BCD4" },
-          ].map((stat) => (
-            <div key={stat.label} className="text-center">
-              <div className="font-pixel text-2xl mb-1" style={{ color: stat.color }}>{stat.value}</div>
-              <div className="font-rubik text-xs" style={{ color: "#666" }}>{stat.label}</div>
-            </div>
-          ))}
+          <div className="flex items-center justify-center gap-1.5 mt-3">
+            <span className="w-2 h-2 rounded-full bg-green-500" style={{ boxShadow: "0 0 5px #22c55e" }} />
+            <span className="text-xs text-gray-500">247 / 500 онлайн</span>
+          </div>
         </div>
       </div>
     </section>
   );
 }
 
-function CatalogSection() {
-  const [filter, setFilter] = useState("Все");
-  const categories = ["Все", "Оружие", "Броня", "Блоки", "Зелья", "Особое"];
-  const filtered = filter === "Все" ? catalogItems : catalogItems.filter((i) => i.category === filter);
+function ShopSection() {
+  const [tab, setTab] = useState<"privileges" | "chests" | "services">("privileges");
 
   return (
-    <section id="catalog" className="py-20 px-4 max-w-6xl mx-auto">
-      <SectionHeader title="КАТАЛОГ" subtitle="Товары и предметы для сервера" icon="ShoppingBag" />
-
-      <div className="flex flex-wrap gap-2 mb-10 justify-center">
-        {categories.map((cat) => (
-          <button
-            key={cat}
-            onClick={() => setFilter(cat)}
-            className="font-pixel transition-all"
-            style={{
-              fontSize: "9px",
-              padding: "8px 14px",
-              background: filter === cat ? "#4CAF50" : "rgba(76,175,80,0.08)",
-              color: filter === cat ? "#000" : "#4CAF50",
-              border: "1px solid rgba(76,175,80,0.35)",
-            }}
-          >
-            {cat}
-          </button>
-        ))}
-      </div>
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {filtered.map((item, idx) => {
-          const rarity = rarityConfig[item.rarity];
-          return (
-            <div
-              key={item.id}
-              className="flex flex-col gap-3 animate-slide-up transition-all duration-200 hover:-translate-y-1"
-              style={{
-                background: rarity.bg,
-                border: `2px solid ${rarity.color}40`,
-                padding: "20px",
-                animationDelay: `${idx * 80}ms`,
-              }}
-            >
-              <div className="flex items-start justify-between">
-                <div className="text-4xl animate-float" style={{ animationDelay: `${idx * 200}ms` }}>
-                  {item.emoji}
-                </div>
-                <span
-                  className="font-pixel"
-                  style={{ fontSize: "8px", padding: "4px 8px", background: `${rarity.color}15`, color: rarity.color, border: `1px solid ${rarity.color}40` }}
-                >
-                  {rarity.label}
-                </span>
-              </div>
-              <div>
-                <div className="font-rubik font-semibold text-white text-base mb-1">{item.name}</div>
-                <div className="font-rubik text-xs" style={{ color: "#888" }}>{item.desc}</div>
-              </div>
-              <div className="flex items-center justify-between mt-auto pt-3" style={{ borderTop: `1px solid ${rarity.color}15` }}>
-                <span className="font-pixel text-sm" style={{ color: "#FFD700" }}>{item.price} ₽</span>
+    <section id="shop" className="py-16 px-4">
+      <div className="max-w-6xl mx-auto">
+        {/* Header */}
+        <div className="bg-white rounded-2xl p-4 flex items-center justify-between mb-6 shadow-sm">
+          <div className="flex items-center gap-3">
+            <span className="text-2xl">🎁</span>
+            <span className="font-rubik font-700 text-gray-800 text-lg">Магазин DunWorld</span>
+          </div>
+          <div className="flex gap-2">
+            {(["privileges", "chests", "services"] as const).map((t) => {
+              const labels = { privileges: "Привилегии", chests: "Сундуки", services: "Услуги" };
+              return (
                 <button
-                  className="font-pixel transition-all duration-100 active:scale-95"
-                  style={{ fontSize: "9px", padding: "8px 14px", background: rarity.color, color: "#000" }}
+                  key={t}
+                  onClick={() => setTab(t)}
+                  className="font-rubik font-600 text-sm px-4 py-2 rounded-lg transition-all"
+                  style={{
+                    background: tab === t ? "#FF9800" : "transparent",
+                    color: tab === t ? "#fff" : "#888",
+                  }}
                 >
-                  КУПИТЬ
+                  {labels[t]}
                 </button>
-              </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Privileges */}
+        {tab === "privileges" && (
+          <div>
+            <div className="font-rubik font-700 text-gray-700 text-base mb-4">Донат привилегии</div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              {privileges.map((priv, idx) => (
+                <div
+                  key={priv.id}
+                  className="shop-card animate-slide-up"
+                  style={{ animationDelay: `${idx * 80}ms` }}
+                >
+                  {/* Image area */}
+                  <div
+                    className="h-44 flex items-center justify-center relative"
+                    style={{ background: priv.bg }}
+                  >
+                    <span className="text-7xl animate-float" style={{ animationDelay: `${idx * 400}ms` }}>
+                      {priv.emoji}
+                    </span>
+                    <div className="price-badge">{priv.price.toLocaleString()} ₽</div>
+                    {priv.popular && (
+                      <div
+                        className="absolute top-0 right-0 font-rubik font-700 text-xs text-white px-2 py-1 rounded-bl-lg"
+                        style={{ background: "#F44336" }}
+                      >
+                        ПОПУЛЯРНО
+                      </div>
+                    )}
+                    <button className="cart-btn">
+                      <Icon name="ShoppingCart" size={16} />
+                    </button>
+                  </div>
+                  {/* Info */}
+                  <div className="p-4">
+                    <div className="font-rubik font-700 text-gray-900 mb-2">[{priv.name}]</div>
+                    <ul className="flex flex-col gap-1">
+                      {priv.perks.map((p, i) => (
+                        <li key={i} className="flex items-center gap-1.5 text-xs text-gray-500">
+                          <span className="text-orange-400">▸</span> {p}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              ))}
             </div>
-          );
-        })}
+          </div>
+        )}
+
+        {/* Chests */}
+        {tab === "chests" && (
+          <div>
+            <div className="font-rubik font-700 text-gray-700 text-base mb-4">Сундуки</div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+              {chests.map((chest, idx) => (
+                <div
+                  key={chest.id}
+                  className="shop-card animate-slide-up"
+                  style={{ animationDelay: `${idx * 60}ms` }}
+                >
+                  <div
+                    className="h-36 flex items-center justify-center relative"
+                    style={{ background: "linear-gradient(135deg, #FFF8E1, #FFE082)" }}
+                  >
+                    <span className="text-5xl animate-float" style={{ animationDelay: `${idx * 300}ms` }}>
+                      {chest.emoji}
+                    </span>
+                    {chest.tag && (
+                      <div className="absolute top-8 right-8 font-rubik font-900 text-yellow-500 text-xl">
+                        {chest.tag}
+                      </div>
+                    )}
+                    <div className="price-badge">{chest.price} ₽</div>
+                    <button className="cart-btn"><Icon name="ShoppingCart" size={15} /></button>
+                  </div>
+                  <div className="p-3">
+                    <div className="font-rubik font-600 text-gray-800 text-sm">{chest.name}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Services */}
+        {tab === "services" && (
+          <div>
+            <div className="font-rubik font-700 text-gray-700 text-base mb-4">Услуги</div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+              {services.map((svc, idx) => (
+                <div
+                  key={svc.id}
+                  className="shop-card animate-slide-up"
+                  style={{ animationDelay: `${idx * 80}ms` }}
+                >
+                  <div
+                    className="h-36 flex items-center justify-center relative"
+                    style={{ background: "linear-gradient(135deg, #FFF3E0, #FFCC80)" }}
+                  >
+                    <span className="text-5xl animate-float" style={{ animationDelay: `${idx * 400}ms` }}>
+                      {svc.emoji}
+                    </span>
+                    <div className="price-badge">{svc.price} ₽</div>
+                    <button className="cart-btn"><Icon name="ShoppingCart" size={15} /></button>
+                  </div>
+                  <div className="p-3">
+                    <div className="font-rubik font-600 text-gray-800 text-sm">{svc.name}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </section>
+  );
+}
+
+function JoinBanner() {
+  return (
+    <section className="py-6 px-4">
+      <div className="max-w-6xl mx-auto">
+        <div className="bg-white rounded-2xl p-6 flex flex-col sm:flex-row items-center gap-6 shadow-sm">
+          <span className="text-5xl flex-shrink-0">⛏️</span>
+          <div className="flex-1">
+            <div className="font-rubik font-700 text-gray-900 text-lg mb-1">
+              Присоединяйтесь к нам прямо сейчас и начинайте игру!
+            </div>
+            <div className="font-rubik text-sm text-gray-500">
+              Выбери свою роль и отыгрывай её. У нас можно стать кем угодно!
+            </div>
+          </div>
+          <div className="flex items-center gap-3 flex-shrink-0">
+            <div className="text-right hidden sm:block">
+              <div className="text-xs text-gray-400">Версия сервера</div>
+              <div className="font-rubik font-700 text-gray-700">1.16.5 — 1.20</div>
+            </div>
+            <button
+              className="orange-btn flex items-center gap-2"
+              onClick={() => navigator.clipboard?.writeText("play.dunworld.ru")}
+            >
+              play.dunworld.ru
+              <Icon name="Copy" size={14} />
+            </button>
+          </div>
+        </div>
       </div>
     </section>
   );
@@ -384,80 +385,39 @@ function CatalogSection() {
 
 function DonateSection() {
   return (
-    <section id="donate" className="py-20 px-4" style={{ background: "rgba(0,0,0,0.35)" }}>
+    <section id="donate" className="py-16 px-4">
       <div className="max-w-6xl mx-auto">
-        <SectionHeader title="ПРИВИЛЕГИИ" subtitle="Выбери свой статус на сервере" icon="Crown" />
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {donatePacks.map((pack, idx) => (
+        <div className="text-center mb-10">
+          <h2 className="font-rubik font-900 text-2xl text-gray-900 mb-1">Описание привилегий</h2>
+          <p className="text-sm text-gray-500">Подробное описание каждого ранга</p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          {privileges.map((priv, idx) => (
             <div
-              key={pack.id}
-              className="relative flex flex-col animate-slide-up"
-              style={{
-                background: "var(--mc-surface)",
-                border: `2px solid ${pack.color}50`,
-                animationDelay: `${idx * 120}ms`,
-              }}
+              key={priv.id}
+              className="bg-white rounded-2xl overflow-hidden shadow-sm animate-slide-up"
+              style={{ animationDelay: `${idx * 100}ms` }}
             >
-              {pack.popular && (
-                <div
-                  className="absolute -top-3 left-1/2 -translate-x-1/2 font-pixel whitespace-nowrap"
-                  style={{ fontSize: "8px", padding: "4px 10px", background: pack.color, color: "#000" }}
-                >
-                  ★ ПОПУЛЯРНО
-                </div>
-              )}
-
-              <div
-                className="p-5 text-center"
-                style={{ background: `${pack.color}12`, borderBottom: `2px solid ${pack.color}30` }}
-              >
-                <div className="text-4xl mb-2 animate-float" style={{ animationDelay: `${idx * 300}ms` }}>
-                  {pack.emoji}
-                </div>
-                <div className="font-pixel text-sm mb-2" style={{ color: pack.color }}>
-                  [{pack.name}]
-                </div>
-                <div className="font-pixel text-2xl" style={{ color: "#fff" }}>{pack.price}</div>
-                <div className="font-pixel mt-1" style={{ fontSize: "8px", color: "#666" }}>рублей / мес</div>
+              <div className="h-24 flex items-center justify-center" style={{ background: priv.bg }}>
+                <span className="text-4xl">{priv.emoji}</span>
               </div>
-
-              <div className="p-5 flex flex-col gap-2 flex-1">
-                {pack.perks.map((perk, i) => (
-                  <div key={i} className="flex items-start gap-2">
-                    <span style={{ color: pack.color, fontSize: "10px", marginTop: "2px", flexShrink: 0 }}>▶</span>
-                    <span className="font-rubik text-xs leading-relaxed" style={{ color: "#bbb" }}>{perk}</span>
-                  </div>
-                ))}
-              </div>
-
-              <div className="p-5 pt-0">
-                <button
-                  className="w-full font-pixel transition-all duration-150 active:scale-95"
-                  style={{
-                    fontSize: "9px",
-                    padding: "12px",
-                    background: pack.color,
-                    color: "#000",
-                    boxShadow: `0 4px 0 ${pack.color}60`,
-                  }}
-                >
-                  КУПИТЬ {pack.name}
-                </button>
+              <div className="p-5">
+                <div className="font-rubik font-700 text-gray-900 text-lg mb-1">[{priv.name}]</div>
+                <div className="font-rubik font-900 text-orange-500 text-xl mb-4">
+                  {priv.price.toLocaleString()} ₽
+                </div>
+                <ul className="flex flex-col gap-2 mb-5">
+                  {priv.perks.map((p, i) => (
+                    <li key={i} className="flex items-center gap-2 text-sm text-gray-600">
+                      <span className="w-5 h-5 rounded-full bg-orange-100 flex items-center justify-center text-orange-500 flex-shrink-0 text-xs">✓</span>
+                      {p}
+                    </li>
+                  ))}
+                </ul>
+                <button className="orange-btn w-full">Купить [{priv.name}]</button>
               </div>
             </div>
           ))}
-        </div>
-
-        <div
-          className="mt-10 p-5 flex items-start gap-4"
-          style={{ background: "rgba(76,175,80,0.07)", border: "2px solid rgba(76,175,80,0.2)" }}
-        >
-          <Icon name="Info" size={20} style={{ color: "#4CAF50", flexShrink: 0, marginTop: "2px" }} />
-          <div className="font-rubik text-sm" style={{ color: "#aaa" }}>
-            После оплаты привилегия активируется автоматически в течение <strong style={{ color: "#4CAF50" }}>15 минут</strong>. 
-            Войдите на сервер и введите <strong style={{ color: "#FFD700", fontFamily: "monospace" }}>/rank check</strong> для проверки.
-          </div>
         </div>
       </div>
     </section>
@@ -469,71 +429,64 @@ function LeaderboardSection() {
   const sorted = [...leaderboard].sort((a, b) =>
     tab === "donated" ? b.donated - a.donated : b.activity - a.activity
   );
+  const medals = ["#FFD700", "#C0C0C0", "#CD7F32"];
 
   return (
-    <section id="leaderboard" className="py-20 px-4 max-w-4xl mx-auto">
-      <SectionHeader title="ТОП ИГРОКОВ" subtitle="Лидеры нашего сервера" icon="Trophy" />
+    <section id="leaderboard" className="py-16 px-4" style={{ background: "#EFEFEF" }}>
+      <div className="max-w-4xl mx-auto">
+        <div className="text-center mb-8">
+          <h2 className="font-rubik font-900 text-2xl text-gray-900 mb-1">Топ игроков</h2>
+          <p className="text-sm text-gray-500">Лидеры нашего сервера</p>
+        </div>
 
-      <div className="flex gap-0 mb-8 w-fit mx-auto">
-        {(["activity", "donated"] as const).map((t) => (
-          <button
-            key={t}
-            onClick={() => setTab(t)}
-            className="font-pixel transition-all"
-            style={{
-              fontSize: "9px",
-              padding: "10px 18px",
-              background: tab === t ? "#4CAF50" : "rgba(76,175,80,0.08)",
-              color: tab === t ? "#000" : "#4CAF50",
-              border: "2px solid rgba(76,175,80,0.3)",
-            }}
-          >
-            {t === "activity" ? "⚡ АКТИВНОСТЬ" : "💰 ДОНАТЫ"}
-          </button>
-        ))}
-      </div>
-
-      <div className="flex flex-col gap-2">
-        {sorted.map((player, idx) => {
-          const medals = ["#FFD700", "#C0C0C0", "#CD7F32"];
-          const isTop3 = idx < 3;
-          const barColor = tab === "activity"
-            ? (idx === 0 ? "#4CAF50" : "rgba(76,175,80,0.35)")
-            : (idx === 0 ? "#FFD700" : "rgba(255,215,0,0.3)");
-          const maxVal = tab === "activity" ? sorted[0].activity : sorted[0].donated;
-          const val = tab === "activity" ? player.activity : player.donated;
-          const pct = (val / maxVal) * 100;
-
-          return (
-            <div
-              key={player.name}
-              className="flex items-center gap-4 p-4 animate-slide-up transition-all"
-              style={{
-                background: isTop3 ? `${medals[idx]}06` : "rgba(255,255,255,0.015)",
-                border: `2px solid ${isTop3 ? medals[idx] + "25" : "rgba(255,255,255,0.04)"}`,
-                animationDelay: `${idx * 60}ms`,
-              }}
+        <div className="flex gap-2 mb-6 justify-center">
+          {(["activity", "donated"] as const).map((t) => (
+            <button
+              key={t}
+              onClick={() => setTab(t)}
+              className="font-rubik font-700 text-sm px-5 py-2 rounded-lg transition-all"
+              style={{ background: tab === t ? "#FF9800" : "#fff", color: tab === t ? "#fff" : "#888" }}
             >
-              <div className="font-pixel text-sm w-8 text-center flex-shrink-0" style={{ color: isTop3 ? medals[idx] : "#555" }}>
-                {isTop3 ? player.badge : `#${player.rank}`}
-              </div>
+              {t === "activity" ? "⚡ Активность" : "💰 Донаты"}
+            </button>
+          ))}
+        </div>
 
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-2 mb-1">
-                  <span className="font-rubik font-semibold text-white text-sm truncate">{player.name}</span>
-                  <span className="font-pixel flex-shrink-0" style={{ fontSize: "8px", color: "#666" }}>Lv.{player.level}</span>
-                </div>
-                <div className="h-1.5 w-full" style={{ background: "rgba(255,255,255,0.04)" }}>
-                  <div className="h-1.5 transition-all duration-700" style={{ width: `${pct}%`, background: barColor }} />
-                </div>
-              </div>
+        <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
+          {sorted.map((player, idx) => {
+            const isTop3 = idx < 3;
+            const maxVal = tab === "activity" ? sorted[0].activity : sorted[0].donated;
+            const val = tab === "activity" ? player.activity : player.donated;
+            const pct = (val / maxVal) * 100;
 
-              <div className="font-pixel text-right flex-shrink-0" style={{ fontSize: "9px", color: tab === "donated" ? "#FFD700" : "#4CAF50" }}>
-                {tab === "donated" ? `${player.donated.toLocaleString()} ₽` : `${player.activity.toLocaleString()} ч`}
+            return (
+              <div
+                key={player.name}
+                className="flex items-center gap-4 px-5 py-3 border-b border-gray-50 last:border-0 animate-slide-up"
+                style={{ animationDelay: `${idx * 50}ms` }}
+              >
+                <div className="w-8 text-center font-rubik font-700 text-base flex-shrink-0"
+                  style={{ color: isTop3 ? medals[idx] : "#bbb" }}>
+                  {isTop3 ? player.badge : `#${player.rank}`}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="font-rubik font-600 text-gray-800 text-sm truncate">{player.name}</span>
+                    <span className="text-xs text-gray-400">Lv.{player.level}</span>
+                  </div>
+                  <div className="h-1.5 w-full rounded-full bg-gray-100">
+                    <div className="h-1.5 rounded-full transition-all duration-700"
+                      style={{ width: `${pct}%`, background: tab === "donated" ? "#FF9800" : "#22c55e" }} />
+                  </div>
+                </div>
+                <div className="font-rubik font-700 text-sm flex-shrink-0"
+                  style={{ color: tab === "donated" ? "#FF9800" : "#22c55e" }}>
+                  {tab === "donated" ? `${player.donated.toLocaleString()} ₽` : `${player.activity.toLocaleString()} ч`}
+                </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
     </section>
   );
@@ -541,50 +494,40 @@ function LeaderboardSection() {
 
 function RulesSection() {
   return (
-    <section id="rules" className="py-20 px-4" style={{ background: "rgba(0,0,0,0.35)" }}>
+    <section id="rules" className="py-16 px-4">
       <div className="max-w-5xl mx-auto">
-        <SectionHeader title="ПРАВИЛА" subtitle="Правила сервера и условия покупок" icon="ScrollText" />
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div className="text-center mb-10">
+          <h2 className="font-rubik font-900 text-2xl text-gray-900 mb-1">Правила сервера</h2>
+          <p className="text-sm text-gray-500">Соблюдай правила — играй честно</p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {rules.map((section, idx) => (
             <div
               key={section.title}
-              className="p-5 animate-slide-up"
-              style={{
-                background: "var(--mc-surface)",
-                border: "2px solid rgba(76,175,80,0.18)",
-                animationDelay: `${idx * 100}ms`,
-              }}
+              className="bg-white rounded-2xl p-5 shadow-sm animate-slide-up"
+              style={{ animationDelay: `${idx * 80}ms` }}
             >
-              <div className="flex items-center gap-3 mb-4 pb-3" style={{ borderBottom: "1px solid rgba(76,175,80,0.18)" }}>
-                <div className="w-8 h-8 flex items-center justify-center flex-shrink-0" style={{ background: "rgba(76,175,80,0.12)", border: "1px solid rgba(76,175,80,0.35)" }}>
-                  <Icon name={section.icon} size={15} style={{ color: "#4CAF50" }} />
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
+                  style={{ background: "#FFF3E0" }}>
+                  <Icon name={section.icon} size={18} style={{ color: "#FF9800" }} />
                 </div>
-                <span className="font-pixel" style={{ fontSize: "10px", color: "#4CAF50" }}>{section.title}</span>
+                <span className="font-rubik font-700 text-gray-800">{section.title}</span>
               </div>
               <ul className="flex flex-col gap-2">
                 {section.items.map((rule, i) => (
-                  <li key={i} className="flex items-start gap-2">
-                    <span style={{ color: "#4CAF50", fontSize: "8px", marginTop: "5px", flexShrink: 0 }}>■</span>
-                    <span className="font-rubik text-sm" style={{ color: "#bbb" }}>{rule}</span>
+                  <li key={i} className="flex items-start gap-2 text-sm text-gray-600">
+                    <span className="text-orange-400 mt-0.5 flex-shrink-0">■</span> {rule}
                   </li>
                 ))}
               </ul>
             </div>
           ))}
         </div>
-
-        <div
-          className="mt-8 p-5 flex items-start gap-4"
-          style={{ background: "rgba(255,152,0,0.06)", border: "2px solid rgba(255,152,0,0.25)" }}
-        >
-          <span className="text-2xl flex-shrink-0">⚠️</span>
-          <div>
-            <div className="font-pixel mb-2" style={{ fontSize: "9px", color: "#FF9800" }}>ВАЖНО</div>
-            <div className="font-rubik text-sm" style={{ color: "#aaa" }}>
-              Нарушение правил сервера влечёт блокировку без возврата средств за донат-привилегии.
-              Администрация оставляет за собой право изменять правила без предупреждения.
-            </div>
+        <div className="mt-5 bg-orange-50 border border-orange-200 rounded-2xl p-4 flex items-start gap-3">
+          <span className="text-xl flex-shrink-0">⚠️</span>
+          <div className="text-sm text-gray-600">
+            Нарушение правил влечёт блокировку <strong>без возврата средств</strong> за донат-привилегии.
           </div>
         </div>
       </div>
@@ -592,39 +535,59 @@ function RulesSection() {
   );
 }
 
+function SocialsSection() {
+  return (
+    <section className="py-8 px-4" style={{ background: "#EFEFEF" }}>
+      <div className="max-w-6xl mx-auto grid grid-cols-2 sm:grid-cols-4 gap-3">
+        {socials.map((s) => (
+          <button
+            key={s.label}
+            className="bg-white rounded-2xl p-4 flex items-center gap-3 shadow-sm hover:shadow-md transition-all font-rubik font-700 text-gray-700"
+          >
+            <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: s.bg }}>
+              <Icon name="ExternalLink" size={18} style={{ color: s.color }} />
+            </div>
+            {s.label}
+          </button>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 function Footer({ onNav }: { onNav: (id: string) => void }) {
   return (
-    <footer className="py-12 px-4" style={{ background: "#050505", borderTop: "2px solid rgba(76,175,80,0.15)" }}>
-      <div className="max-w-6xl mx-auto">
-        <div className="flex flex-col md:flex-row justify-between items-start gap-8 mb-8">
-          <div>
-            <div className="font-pixel text-base mb-2" style={{ color: "#4CAF50" }}>⛏️ DUNWORLD</div>
-            <div className="font-rubik text-sm mb-3" style={{ color: "#555" }}>Лучший магазин для твоего Minecraft</div>
-            <div className="font-pixel" style={{ fontSize: "10px", color: "#4CAF50" }}>play.dunworld.ru</div>
+    <footer className="bg-white border-t border-gray-100 py-10 px-4">
+      <div className="max-w-6xl mx-auto flex flex-col md:flex-row gap-8 justify-between">
+        <div>
+          <div className="flex items-center gap-2 mb-3">
+            <div className="w-9 h-9 rounded-lg flex items-center justify-center text-white font-bold text-sm" style={{ background: "#FF9800" }}>DW</div>
+            <div className="font-rubik font-900 text-gray-900">DUNWORLD</div>
           </div>
+          <div className="text-xs text-gray-400 leading-relaxed">
+            © 2026 DunWorld. Все права защищены.<br />
+            DunWorld не связан с MojangAB.<br />
+            admin@dunworld.ru
+          </div>
+        </div>
+        <div>
+          <div className="font-rubik font-700 text-gray-700 mb-3 text-sm">Навигация</div>
           <div className="flex flex-col gap-2">
-            <div className="font-pixel mb-2" style={{ fontSize: "9px", color: "#555" }}>НАВИГАЦИЯ</div>
             {navItems.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => onNav(item.id)}
-                className="font-rubik text-sm text-left transition-colors duration-200 hover:text-green-400"
-                style={{ color: "#555" }}
-              >
+              <button key={item.id} onClick={() => onNav(item.id)}
+                className="text-sm text-gray-500 text-left hover:text-orange-500 transition-colors font-rubik">
                 {item.label}
               </button>
             ))}
           </div>
-          <div className="flex flex-col gap-2">
-            <div className="font-pixel mb-2" style={{ fontSize: "9px", color: "#555" }}>КОНТАКТЫ</div>
-            <div className="font-rubik text-sm" style={{ color: "#555" }}>Discord: discord.gg/craftstore</div>
-            <div className="font-rubik text-sm" style={{ color: "#555" }}>VK: vk.com/craftstore</div>
-            <div className="font-rubik text-sm" style={{ color: "#555" }}>Telegram: @craftstoremc</div>
-          </div>
         </div>
-        <div className="pt-6 flex flex-col sm:flex-row justify-between items-center gap-2" style={{ borderTop: "1px solid rgba(76,175,80,0.08)" }}>
-          <div className="font-pixel" style={{ fontSize: "8px", color: "#333" }}>© 2024 CRAFTSTORE. ALL RIGHTS RESERVED.</div>
-          <div className="font-pixel" style={{ fontSize: "8px", color: "#333" }}>NOT AN OFFICIAL MINECRAFT PRODUCT</div>
+        <div>
+          <div className="font-rubik font-700 text-gray-700 mb-3 text-sm">Документы</div>
+          <div className="flex flex-col gap-2">
+            {["Договор оферты", "Политика конфиденциальности", "Способы оплаты"].map((doc) => (
+              <button key={doc} className="text-sm text-orange-500 text-left hover:underline font-rubik">{doc}</button>
+            ))}
+          </div>
         </div>
       </div>
     </footer>
@@ -634,29 +597,25 @@ function Footer({ onNav }: { onNav: (id: string) => void }) {
 // ─── MAIN ─────────────────────────────────────────────────────────────────────
 
 export default function Index() {
-  const [activeSection, setActiveSection] = useState("home");
+  const [active, setActive] = useState("home");
 
   const scrollTo = (id: string) => {
-    setActiveSection(id);
-    if (id === "home") {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-      return;
-    }
+    setActive(id);
+    if (id === "home") { window.scrollTo({ top: 0, behavior: "smooth" }); return; }
     const el = document.getElementById(id);
-    if (el) {
-      const top = el.getBoundingClientRect().top + window.scrollY - 80;
-      window.scrollTo({ top, behavior: "smooth" });
-    }
+    if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 70, behavior: "smooth" });
   };
 
   return (
-    <div className="min-h-screen" style={{ background: "#0A0A0A" }}>
-      <Navbar active={activeSection} onNav={scrollTo} />
+    <div className="min-h-screen" style={{ background: "#F5F5F5" }}>
+      <Navbar active={active} onNav={scrollTo} />
       <HeroSection onNav={scrollTo} />
-      <CatalogSection />
+      <JoinBanner />
+      <ShopSection />
       <DonateSection />
       <LeaderboardSection />
       <RulesSection />
+      <SocialsSection />
       <Footer onNav={scrollTo} />
     </div>
   );

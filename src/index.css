@@ -4,98 +4,317 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 0 0% 5%;
+    --foreground: 120 100% 90%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 0 0% 8%;
+    --card-foreground: 120 100% 90%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 8%;
+    --popover-foreground: 120 100% 90%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 120 80% 45%;
+    --primary-foreground: 0 0% 5%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 0 0% 12%;
+    --secondary-foreground: 120 60% 80%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 120 20% 60%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 45 100% 50%;
+    --accent-foreground: 0 0% 5%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 120 30% 20%;
+    --input: 0 0% 12%;
+    --ring: 120 80% 45%;
 
-    --radius: 0.5rem;
+    --radius: 0rem;
 
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* MC Custom */
+    --mc-green: #4caf50;
+    --mc-dark-green: #2e7d32;
+    --mc-gold: #ffd700;
+    --mc-diamond: #00bcd4;
+    --mc-netherite: #6b4c4c;
+    --mc-emerald: #00e676;
+    --mc-dirt: #8b6914;
+    --mc-stone: #9e9e9e;
+    --mc-bg: #0a0a0a;
+    --mc-surface: #111111;
+    --mc-surface-2: #1a1a1a;
   }
 }
 
 @layer base {
   * {
     @apply border-border;
+    image-rendering: pixelated;
   }
 
   body {
     @apply bg-background text-foreground;
+    font-family: "Rubik", sans-serif;
+    background-color: var(--mc-bg);
+    background-image:
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 31px,
+        rgba(0, 255, 0, 0.015) 31px,
+        rgba(0, 255, 0, 0.015) 32px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 31px,
+        rgba(0, 255, 0, 0.015) 31px,
+        rgba(0, 255, 0, 0.015) 32px
+      );
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--mc-bg);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--mc-green);
+    border-radius: 0;
+  }
+}
+
+@layer utilities {
+  .font-pixel {
+    font-family: "Press Start 2P", monospace;
+  }
+
+  .font-rubik {
+    font-family: "Rubik", sans-serif;
+  }
+
+  .pixel-border {
+    box-shadow:
+      inset -2px -2px 0px rgba(0, 0, 0, 0.5),
+      inset 2px 2px 0px rgba(255, 255, 255, 0.1),
+      0 0 0 2px var(--mc-green);
+  }
+
+  .pixel-border-gold {
+    box-shadow:
+      inset -2px -2px 0px rgba(0, 0, 0, 0.5),
+      inset 2px 2px 0px rgba(255, 255, 255, 0.1),
+      0 0 0 2px var(--mc-gold);
+  }
+
+  .pixel-border-diamond {
+    box-shadow:
+      inset -2px -2px 0px rgba(0, 0, 0, 0.5),
+      inset 2px 2px 0px rgba(255, 255, 255, 0.1),
+      0 0 0 2px var(--mc-diamond);
+  }
+
+  .pixel-border-netherite {
+    box-shadow:
+      inset -2px -2px 0px rgba(0, 0, 0, 0.5),
+      inset 2px 2px 0px rgba(255, 255, 255, 0.1),
+      0 0 0 2px #9c27b0;
+  }
+
+  .glow-green {
+    text-shadow:
+      0 0 10px var(--mc-green),
+      0 0 20px var(--mc-green);
+  }
+
+  .glow-gold {
+    text-shadow:
+      0 0 10px var(--mc-gold),
+      0 0 20px var(--mc-gold);
+  }
+
+  .glow-diamond {
+    text-shadow:
+      0 0 10px var(--mc-diamond),
+      0 0 20px var(--mc-diamond);
+  }
+
+  .glow-emerald {
+    text-shadow:
+      0 0 10px var(--mc-emerald),
+      0 0 20px var(--mc-emerald);
+  }
+
+  .mc-btn {
+    font-family: "Press Start 2P", monospace;
+    font-size: 10px;
+    padding: 12px 20px;
+    background: var(--mc-green);
+    color: #000;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.1s;
+    box-shadow:
+      4px 4px 0 #1b5e20,
+      inset 1px 1px 0 rgba(255, 255, 255, 0.3);
+  }
+
+  .mc-btn:hover {
+    transform: translate(-1px, -1px);
+    box-shadow:
+      5px 5px 0 #1b5e20,
+      inset 1px 1px 0 rgba(255, 255, 255, 0.3);
+  }
+
+  .mc-btn:active {
+    transform: translate(2px, 2px);
+    box-shadow:
+      2px 2px 0 #1b5e20,
+      inset 1px 1px 0 rgba(255, 255, 255, 0.3);
+  }
+
+  .mc-btn-gold {
+    background: var(--mc-gold);
+    box-shadow:
+      4px 4px 0 #e65100,
+      inset 1px 1px 0 rgba(255, 255, 255, 0.3);
+  }
+
+  .mc-btn-gold:hover {
+    box-shadow:
+      5px 5px 0 #e65100,
+      inset 1px 1px 0 rgba(255, 255, 255, 0.3);
+  }
+
+  .mc-card {
+    background: var(--mc-surface);
+    border: 2px solid rgba(76, 175, 80, 0.3);
+    position: relative;
+    transition: all 0.2s;
+  }
+
+  .mc-card:hover {
+    border-color: var(--mc-green);
+    box-shadow: 0 0 20px rgba(76, 175, 80, 0.2);
+    transform: translateY(-2px);
+  }
+
+  .pixel-item {
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+  }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .animate-pulse-green {
+    animation: pulse-green 2s ease-in-out infinite;
+  }
+
+  .animate-blink {
+    animation: blink 1s step-end infinite;
+  }
+
+  .animate-slide-up {
+    animation: slide-up 0.5s ease-out forwards;
+  }
+
+  .animate-shimmer {
+    animation: shimmer 2s linear infinite;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.1) 50%,
+      transparent 100%
+    );
+    background-size: 200% 100%;
+  }
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-8px);
+    }
+  }
+
+  @keyframes pulse-green {
+    0%,
+    100% {
+      box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
+    }
+    50% {
+      box-shadow:
+        0 0 20px rgba(76, 175, 80, 0.7),
+        0 0 40px rgba(76, 175, 80, 0.3);
+    }
+  }
+
+  @keyframes blink {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+  }
+
+  @keyframes slide-up {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+
+  @keyframes accordion-down {
+    from {
+      height: 0;
+      opacity: 0;
+    }
+    to {
+      height: var(--radix-accordion-content-height);
+      opacity: 1;
+    }
+  }
+
+  @keyframes accordion-up {
+    from {
+      height: var(--radix-accordion-content-height);
+      opacity: 1;
+    }
+    to {
+      height: 0;
+      opacity: 0;
+    }
+  }
+
+  .animate-accordion-down {
+    animation: accordion-down 0.2s ease-out;
+  }
+
+  .animate-accordion-up {
+    animation: accordion-up 0.2s ease-out;
   }
 }

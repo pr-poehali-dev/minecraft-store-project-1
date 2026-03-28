@@ -15,23 +15,71 @@ const navItems = [
 
 const privileges = [
   {
-    id: "d-helper", name: "D.HELPER", price: 499,
-    emoji: "🛡️",
-    bg: "linear-gradient(135deg, #43A047, #1B5E20)",
-    perks: ["Префикс [D.HELPER] в чате", "×2 к дропу предметов", "/fly на 7 дней", "Цветной ник", "30 дней"],
+    id: "hero", name: "HERO", price: 39,
+    emoji: "🧑‍⚔️",
+    bg: "linear-gradient(135deg, #42A5F5, #1565C0)",
+    perks: ["Префикс [HERO] в чате", "Цветной ник", "Базовые бонусы"],
   },
   {
-    id: "pegas", name: "PEGAS", price: 1999,
-    emoji: "⭐",
-    bg: "linear-gradient(135deg, #FB8C00, #E65100)",
+    id: "titan", name: "TITAN", price: 89,
+    emoji: "🧟",
+    bg: "linear-gradient(135deg, #66BB6A, #2E7D32)",
+    perks: ["Префикс [TITAN] в чате", "Цветной ник", "Бонусы HERO+"],
+  },
+  {
+    id: "avenger", name: "AVENGER", price: 129,
+    emoji: "🦸",
+    bg: "linear-gradient(135deg, #26C6DA, #00838F)",
+    perks: ["Префикс [AVENGER] в чате", "/fly на 3 дня", "Бонусы TITAN+"],
+  },
+  {
+    id: "overlord", name: "OVERLORD", price: 289,
+    emoji: "💀",
+    bg: "linear-gradient(135deg, #78909C, #263238)",
+    perks: ["Префикс [OVERLORD] в чате", "/fly на 7 дней", "Бонусы AVENGER+"],
+  },
+  {
+    id: "magister", name: "MAGISTER", price: 589,
+    emoji: "🧙",
+    bg: "linear-gradient(135deg, #FFA726, #E65100)",
+    perks: ["Префикс [MAGISTER] в чате", "/fly на 14 дней", "Бонусы OVERLORD+"],
+  },
+  {
+    id: "imperator", name: "IMPERATOR", price: 999,
+    emoji: "👸",
+    bg: "linear-gradient(135deg, #EC407A, #880E4F)",
+    perks: ["Префикс [IMPERATOR] в чате", "/fly на 30 дней", "Приват 128 чанков"],
+  },
+  {
+    id: "dragon", name: "DRAGON", price: 1899,
+    emoji: "🐉",
+    bg: "linear-gradient(135deg, #7E57C2, #311B92)",
+    perks: ["Префикс [DRAGON] в чате", "/fly без ограничений", "Приват 256 чанков"],
+  },
+  {
+    id: "helper", name: "HELPER", price: 6666,
+    emoji: "😇",
+    bg: "linear-gradient(135deg, #29B6F6, #01579B)",
+    perks: ["Префикс [HELPER] в чате", "/fly без ограничений", "Все права DRAGON+"],
+  },
+  {
+    id: "god", name: "GOD", price: 4444,
+    emoji: "🧓",
+    bg: "linear-gradient(135deg, #FFCA28, #F57F17)",
     popular: true,
-    perks: ["Префикс [PEGAS] золотом", "×3 к дропу предметов", "/fly без ограничений", "Приват 256 чанков", "30 дней"],
+    perks: ["Префикс [GOD] в чате", "Все права HELPER+", "Личный мир"],
+  },
+  {
+    id: "pegas", name: "PEGAS", price: 7777,
+    emoji: "🦅",
+    bg: "linear-gradient(135deg, #EF5350, #7B1FA2)",
+    perks: ["Префикс [PEGAS] в чате", "Все права GOD+", "Вечная привилегия"],
   },
   {
     id: "dev", name: "DEV", price: 24999,
     emoji: "👑",
     bg: "linear-gradient(135deg, #E53935, #7B1FA2)",
-    perks: ["Префикс [DEV] красным", "Разработчик сервера", "FULL ACCESS", "Личный мир", "Вечная привилегия"],
+    perks: ["Префикс [DEV] красным", "Разработчик сервера", "FULL ACCESS", "Вечная привилегия"],
   },
 ];
 

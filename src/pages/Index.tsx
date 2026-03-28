@@ -211,7 +211,7 @@ function Navbar({ active, onNav }: { active: string; onNav: (id: string) => void
         <div className="hidden md:flex items-center gap-3 flex-shrink-0">
           <div className="flex items-center gap-1.5 text-xs text-gray-500">
             <span className="w-2 h-2 rounded-full bg-green-500 block" style={{ boxShadow: "0 0 5px #22c55e" }} />
-            247 онлайн
+            0 онлайн
           </div>
           <button className="orange-btn" onClick={() => onNav("shop")}>
             Магазин
@@ -287,14 +287,14 @@ function HeroSection({ onNav }: { onNav: (id: string) => void }) {
           <div className="font-rubik font-700 text-orange-500 mb-3">1.16.5 — 1.20</div>
           <button
             className="orange-btn w-full flex items-center justify-center gap-2"
-            onClick={() => navigator.clipboard?.writeText("play.dunworld.ru")}
+            onClick={() => navigator.clipboard?.writeText("f1.rustix.me:33793")}
           >
-            play.dunworld.ru
+            f1.rustix.me:33793
             <Icon name="Copy" size={14} />
           </button>
           <div className="flex items-center justify-center gap-1.5 mt-3">
             <span className="w-2 h-2 rounded-full bg-green-500" style={{ boxShadow: "0 0 5px #22c55e" }} />
-            <span className="text-xs text-gray-500">247 / 500 онлайн</span>
+            <span className="text-xs text-gray-500">0 / 500 онлайн</span>
           </div>
         </div>
       </div>
